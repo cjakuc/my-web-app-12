@@ -9,10 +9,7 @@ from web_app.services.basilica_service import basilica_api_client
 
 twitter_routes = Blueprint("twitter_routes", __name__)
 
-@twitter_routes.route("/users/<screen_name>")
-def get_user(screen_name=None):
-    print(screen_name)
-
+def store_twitter_user_data(screen_name):
     # Get the username from the twitter api and save the
     # user and tweets objects
     api = twitter_api_client()
@@ -53,4 +50,24 @@ def get_user(screen_name=None):
         counter+=1
     db.session.commit()
 
-    return "OK"
+    return db_user, statuses
+
+@twitter_routes.route("/users")
+@twitter_routes.route("/users.json")
+def list_users():
+    ## Can make different results for stacked decorators to reuse functionality
+    #if request.path.endswith(".json"):
+    #    return some json
+    #else:
+    #    render a template
+    db_users = User.query.all()
+    users = parse_records(db_users)
+    return jsonify(users)
+
+@twitter_routes.route("/users/<screen_name>")
+def get_user(screen_name=None):
+    print(screen_name)
+    db_user, statuses = store_twitter_user_data(screen_name)
+
+    # return "OK"
+    return render_template("user.html", user=db_user, tweets=statuses)
