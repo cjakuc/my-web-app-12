@@ -1,11 +1,19 @@
 
 # web_app/routes/home_routes.py
 
-from flask import Blueprint
+from flask import Blueprint, render_template, request
+from web_app.routes.twitter_routes import store_twitter_user_data
+from web_app.models import db, User, Tweet, parse_records
 
 home_routes = Blueprint("home_routes", __name__)
 
 @home_routes.route("/")
+def index():
+    print("VISITED THE HOME PAGE")
+    users = User.query.all()
+    return render_template("prepare_to_predict.html", users=users)
+
+@home_routes.route("/hello")
 def hello():
     print("VISITED THE HELLO PAGE")
     return "Hello World!"

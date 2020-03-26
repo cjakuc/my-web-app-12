@@ -22,7 +22,7 @@ def seed_db():
     # ... so we can "seed" our database with some example users and tweets
     # ... to ensure that it is ready to make predictions later
 
-    default_users = ["elonkusk", "justinbeiber", "s2t2", "austen", "nbcnews"]
+    default_users = ["elonmusk", "justinbieber", "s2t2", "austen", "nbcnews"]
     for screen_name in default_users:
         db_user, statuses = store_twitter_user_data(screen_name)
 

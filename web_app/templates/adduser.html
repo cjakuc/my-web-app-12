@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <h2>Find User</h2>
+
+    <p>Use this form to add a user to the database</p>
+
+    <form action="/adduser/display" method="POST">
+        <label>User:</label>
+        <input type="text" name="user" placeholder="user" value="user">
+        <button>Submit</button>
+    </form>
+
+{% endblock %}

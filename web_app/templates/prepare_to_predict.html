@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h2>Let's make a prediction</h2>
+
+    <p>Use the form below to predict which user is more likely to say a given tweet...</p>
+
+    <form action="/predict" method="POST">
+
+        <label>Twitter User A:</label>
+        <select name="screen_name_a">
+            {% for user in users %}
+                <option value="{{ user.screen_name }}" selected="true">@{{ user.name }}</option>
+            {% endfor %}
+        </select>
+        <br>
+
+        <label>Twitter User B:</label>
+        <select name="screen_name_b">
+            {% for user in users %}
+                <option value="{{ user.screen_name }}" selected="true">@{{ user.name }}</option>
+            {% endfor %}
+          </select>
+        <br>
+
+        <label>Tweet Text:</label>
+        <input type="text" name="tweet_text" placeholder="Tesla Model S production facility is great" value="Tesla Model S production facility is great">
+        <br>
+
+        <button>Submit</button>
+    </form>
+{% endblock %}

@@ -1,7 +1,7 @@
 
 # web_app/routes/twitter_routes.py
 
-from flask import Blueprint, render_template, jsonify
+from flask import Blueprint, render_template, jsonify, request
 
 from web_app.models import db, User, Tweet, parse_records
 from web_app.services.twitter_service import twitter_api_client
@@ -70,4 +70,14 @@ def get_user(screen_name=None):
     db_user, statuses = store_twitter_user_data(screen_name)
 
     # return "OK"
-    return render_template("user.html", user=db_user, tweets=statuses)
+    return render_template("users.html", user=db_user, tweets=statuses)
+
+@twitter_routes.route("/adduser")
+def add_user():
+    return render_template("adduser.html")
+
+@twitter_routes.route("/adduser/display", methods=["POST"])
+def add_user_to_db():
+    user = request.form["user"]
+    db_user, statuses = store_twitter_user_data(user)
+    return render_template("display.html", user=db_user, tweets=statuses)
