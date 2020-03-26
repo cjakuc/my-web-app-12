@@ -47,8 +47,17 @@ def predict():
 
     labels_array = np.array(labels)
     labels_array = labels_array.reshape(-1,1)
+    embeddings_array = np.array(embeddings)
+    # embeddings_array = embeddings_array.reshape(-1,1)
+
     classifier = LogisticRegression(random_state=42, solver='lbfgs') # for example
-    classifier.fit(embeddings, labels_array)
+    classifier.fit(embeddings_array, labels_array)
+    print("labels_array type: ",type(labels_array))
+    print("labels_array shape: ",labels_array.shape)
+    print("labels_array: ", labels_array)
+    print("embeddings_array type: ",type(embeddings_array))
+    print("embeddings_array shape: ",embeddings_array.shape)
+    # print("embeddings: ", embeddings)
 
     print("-----------------")
     print("MAKING A PREDICTION...")
