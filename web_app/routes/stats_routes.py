@@ -45,7 +45,7 @@ def predict():
         embeddings.append(tweet.embedding)
 
     classifier = LogisticRegression(random_state=42, solver='lbfgs') # for example
-    classifier.fit(embeddings, labels)
+    classifier.fit(embeddings, labels.reshape(-1,1))
 
     print("-----------------")
     print("MAKING A PREDICTION...")
