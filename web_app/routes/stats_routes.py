@@ -6,6 +6,7 @@ from sklearn.linear_model import LogisticRegression # for example
 
 from web_app.models import User, Tweet
 from web_app.services.basilica_service import basilica_api_client
+import numpy as np
 
 stats_routes = Blueprint("stats_routes", __name__)
 
@@ -44,8 +45,10 @@ def predict():
         labels.append(user_b.screen_name)
         embeddings.append(tweet.embedding)
 
+    labels_array = np.array(labels)
+    labels_array = labels_array.reshape(-1,1)
     classifier = LogisticRegression(random_state=42, solver='lbfgs') # for example
-    classifier.fit(embeddings, labels.reshape(-1,1))
+    classifier.fit(embeddings, labels_array)
 
     print("-----------------")
     print("MAKING A PREDICTION...")
