@@ -14,7 +14,7 @@ from web_app.routes.iris_routes import iris_routes
 from web_app.routes.stats_routes import stats_routes
 
 load_dotenv()
-DATABASE_URL = os.getenv("DATABASE_URL", DEFAULT = "sqlite:///web_app_12.db")
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 def create_app():
     app = Flask(__name__)
